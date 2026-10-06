@@ -1,0 +1,8 @@
+[
+  {"name": "sc create against remote host", "expect": true,
+   "event": {"Image": "C:\\Windows\\System32\\sc.exe", "CommandLine": "sc.exe \\\\FILESRV01 create evil binPath= \"cmd /c calc\""}},
+  {"name": "local service query", "expect": false,
+   "event": {"Image": "C:\\Windows\\System32\\sc.exe", "CommandLine": "sc.exe query spooler"}},
+  {"name": "local service create, no remote host", "expect": false,
+   "event": {"Image": "C:\\Windows\\System32\\sc.exe", "CommandLine": "sc.exe create mysvc binPath= C:\\app\\svc.exe"}}
+]

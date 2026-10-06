@@ -1,0 +1,29 @@
+title: Remote Service Creation via sc.exe
+id: 3b7a5c92-0e48-4d16-b8f3-9a1d6c2e4b03
+status: experimental
+description: Detects use of sc.exe to create a service on a remote host, a common lateral movement technique.
+author: Donn Gordon
+date: 2026/10/05
+references:
+  - https://attack.mitre.org/techniques/T1021/002/
+  - https://attack.mitre.org/techniques/T1569/002/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    Image|endswith: '\sc.exe'
+  selection_cmd:
+    CommandLine|contains|all:
+      - '\\'
+      - ' create '
+  condition: selection_img and selection_cmd
+falsepositives:
+  - Administrators deploying services remotely
+  - Software deployment tooling
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1021.002
+  - attack.execution
+  - attack.t1569.002

@@ -1,0 +1,32 @@
+title: Suspicious Process Access to LSASS Memory
+id: 8d2e4a60-7b13-4f9c-a1d4-2c6e9f0b7a02
+status: experimental
+description: Detects processes opening a handle to lsass.exe with access rights commonly used for credential dumping.
+author: Donn Gordon
+date: 2026/10/05
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+logsource:
+  category: process_access
+  product: windows
+detection:
+  selection:
+    TargetImage|endswith: '\lsass.exe'
+    GrantedAccess|contains:
+      - '0x1010'
+      - '0x1410'
+      - '0x1438'
+      - '0x1fffff'
+  filter_system:
+    SourceImage|startswith:
+      - 'C:\Windows\System32\'
+      - 'C:\Windows\SysWOW64\'
+      - 'C:\Program Files\Windows Defender\'
+  condition: selection and not filter_system
+falsepositives:
+  - Endpoint security and EDR agents (add your vendor paths to the filter)
+  - Legitimate system diagnostics tools
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1003.001

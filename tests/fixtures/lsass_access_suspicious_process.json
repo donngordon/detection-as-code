@@ -1,0 +1,12 @@
+[
+  {"name": "unknown binary reads lsass memory", "expect": true,
+   "event": {"TargetImage": "C:\\Windows\\System32\\lsass.exe", "SourceImage": "C:\\Users\\Public\\dump.exe", "GrantedAccess": "0x1010"}},
+  {"name": "full access from temp path", "expect": true,
+   "event": {"TargetImage": "C:\\Windows\\System32\\lsass.exe", "SourceImage": "C:\\Temp\\tool.exe", "GrantedAccess": "0x1fffff"}},
+  {"name": "Defender scanning lsass", "expect": false,
+   "event": {"TargetImage": "C:\\Windows\\System32\\lsass.exe", "SourceImage": "C:\\Program Files\\Windows Defender\\MsMpEng.exe", "GrantedAccess": "0x1010"}},
+  {"name": "unknown binary, low-risk access mask", "expect": false,
+   "event": {"TargetImage": "C:\\Windows\\System32\\lsass.exe", "SourceImage": "C:\\Users\\Public\\app.exe", "GrantedAccess": "0x0400"}},
+  {"name": "access to a different process", "expect": false,
+   "event": {"TargetImage": "C:\\Windows\\explorer.exe", "SourceImage": "C:\\Users\\Public\\dump.exe", "GrantedAccess": "0x1010"}}
+]

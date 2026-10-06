@@ -1,0 +1,10 @@
+[
+  {"name": "encoded command via -enc", "expect": true,
+   "event": {"Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell.exe -NoP -enc SQBFAFgA"}},
+  {"name": "pwsh with -EncodedCommand, mixed case", "expect": true,
+   "event": {"Image": "C:\\Program Files\\PowerShell\\7\\PWSH.EXE", "CommandLine": "pwsh -nop -EncodedCommand SQBFAFgA"}},
+  {"name": "benign script file run", "expect": false,
+   "event": {"Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell.exe -File C:\\scripts\\backup.ps1"}},
+  {"name": "-enc flag on a non-PowerShell binary", "expect": false,
+   "event": {"Image": "C:\\Tools\\encoder.exe", "CommandLine": "encoder.exe -enc data"}}
+]
